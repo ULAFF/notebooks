@@ -1,0 +1,168 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>FIREsite</TITLE>
+   <META NAME="description" CONTENT="SPARK homepage">
+   <META NAME="keywords" CONTENT="index,FIREsite,SPARK,FLAME/C,FLAME@lab,FLAME,PLAPACK,BLAS,LAPACK,Linear Algebra Libraries,formal derivation">
+   <META NAME="resource-type" CONTENT="document">
+   <META NAME="distribution" CONTENT="global">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.0Gold (X11; I; AIX 1) [Netscape]">
+</HEAD>
+<BODY BGCOLOR="white" LANG="EN">
+
+<h2 align="center"> Spark </h2>
+
+<h3 align="center"> FLAME code-skeleton generator </h3>
+
+The menu to your left will help you generate code for algorithms that resulted from the
+FLAME approach to deriving linear algebra algorithms.
+
+<p><hr><p>
+
+<a name="section1"></a>
+
+The first section allows you to 
+<ol>
+<li> Indicate the name of the function to be generated. <br>
+Ofcourse it is useful to pick a name that is related to the operation.
+For example, consider the operation
+<div align="center">
+<i> B := L<sup>-1</sup> B </i>
+</div>
+which is often referred to as a <i> Triangular Solve with Multiple Right-hand sides </i> (Trsm).
+Here <i> B </i> is an <i> m &times n </i>  matrix and <i> L </i> is lower triangular.
+We would suggest a name like
+<div align="center">
+<code> Trsm_llnn </code>
+</div>
+where the <code> llnn </code> indicates that the matrix <i> L </i> is
+<p>
+<ul>
+<li>
+on the <b>l</b>eft of matrix <i> B </i>, 
+<li> <b>l</b>ower triangular,
+<li> <b>n</b>ot transposed, and has a
+<li> <b>n</b>onunit diagonal.
+</ul>
+<p>
+<i> The above makes more sense to those who are familiar with the level-3 Basic Linear Algebra Subprograms (BLAS).</i>
+<p>
+<li>
+Whether the algorithm is <i> unblocked</i>, <i> blocked</i>, or <i> recursive</i>.
+<p>
+<li>
+An integer that indicates the algorithmic variant for the given operation the code that is being coded.
+</ol>
+
+<p><hr><p>
+
+<a name="section2"></a>
+
+In the second section, you need to indicate the number of operands for the function and some 
+attributes of those operands:
+
+<div align="center">
+<table width="80%">
+<tr>
+<td width="50"> Tag: </td>
+<td> The letter to be used for the variables.  </td>
+</tr>
+<tr>
+<td>
+Type:
+</td>
+<td>
+The type of the operand: matrix, vector, or scalar.
+</td>
+</tr>
+<tr>
+<td>
+Direction:
+</td>
+<td>
+The direction in which the computation sweeps through the operand.
+</td>
+</tr>
+<tr>
+<td>
+Input/Output:
+</td>
+<td>
+Whether an operand represents input, output, or both. <br>
+<b> Note: </b> For now, it is wise not to indicate that an operand is only an output variable.
+</td>
+</tr>
+</table>
+</div>
+<p>
+<blockquote>
+The convention is that
+<ul>
+<li> upper-case letters denote matrices,
+<li> lower-case letters denote vectors, and a "t" at the end of the name indicates a row-vector, and
+<li> lower-case Greek letters denote scalars.
+</ul>
+</blockquote>
+
+<p><hr><p>
+
+<a name="section3"></a>
+
+Next, you pick the output language to be generated:
+<div align="center">
+<table width="80%">
+<tr>
+<td width="50"> FLAME@lab </td>
+<td> Mscript for <a href="http://www.mathworks.com/"> Matlab </a> or 
+<a href="http://www.octave.org/"> Octave </a> </td>
+</tr>
+<tr>
+<td valign="top">
+FLAMEC
+</td>
+<td>
+Code for the C programming language using the 
+<a href="http://www.cs.utexas.edu/users/flame/">FLAME</a>
+infrastructure. 
+</td>
+</tr>
+<tr>
+<td valign="top">
+PLAPACK
+</td>
+<td>
+Code for the C programming language targeting distributed memory architectures
+using the Parallel Linear Algebra PACKage 
+(<a href="http://www.cs.utexas.edu/users/plapack/">PLAPACK</a>) instructure.
+</td>
+</tr>
+<tr>
+<td>
+FLaTeX:
+</td>
+<td>
+Source for generating an algorithm using LaTeX.
+</td>
+</tr>
+<tr>
+<td>
+FlamePy:
+</td>
+<td>
+Code for the Python programming language using the FLAME infrastructure.
+</td>
+</tr>
+</table>
+</div>
+
+<p><hr><p>
+
+<a name="section4"></a>
+
+Finally, you can indicate your name and e-mail so that the header identifies you as the 
+person who coded the algorithm.
+
+<p><hr><p>
+
+</BODY>
+</HTML>

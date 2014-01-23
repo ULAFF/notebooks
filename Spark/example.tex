@@ -1,0 +1,281 @@
+\documentclass{article}
+
+\input{flatex}   % include all the FLaTeX commands
+
+\begin{document}
+
+% The below figure in the \LaTeX document will be filled in by 
+% defining a number of commands.  
+
+\resetsteps      % Reset all the commands to create a blank worksheet  
+
+% I like defining these kinds of commands to make most of the source
+% as generic as possible
+
+\newcommand{\ArgOne}{L}
+\newcommand{\ArgTwo}{B}
+
+% Fill in the operation to be performed
+
+\renewcommand{\operation}{ \ArgTwo \becomes \ArgOne^{-1} \ArgTwo }
+
+% Step 1a: Fill in the precondition
+
+\newcommand{\OrigTwo}{ \hat{\ArgTwo} }  % set \OrgTwo = \hat{B} 
+
+\renewcommand{\precondition}{ 
+\ArgTwo = \hat{\OrigTwo}                % B = \hat{B}
+}
+
+% Step 1b: Fill in the postcondition
+
+\renewcommand{\postcondition}{ 
+\ArgTwo = \ArgOne^{-1} \hat{\OrigTwo}   % B = L^{-1} \hat{B}
+}
+
+% Step 2: Fill in the loop-invariant
+
+\newcommand{\PartArgTwo}{               % Partition B into top and bottom
+\FlaTwoByOne 
+  { \ArgTwo_{T} }
+  { \ArgTwo_{B} }
+}
+
+\renewcommand{\invariant}{              % Give the invariant
+\PartArgTwo
+    =
+\FlaTwoByOne 
+  { L_{TL}^{-1} \hat{B}_{T} }
+  { \hat{B}_{B} - L_{BL} L_{TL}^{-1} \hat{B}_T }
+}
+
+% Step 3: Fill in the loop-guard
+
+\renewcommand{\guard}{
+n( L_{TL} ) \neq n( L )
+}
+
+% Step 4: Fill in the initialization
+
+\newcommand{\PartArgOne}{               % Partition L into quadrants
+\FlaTwoByTwo
+  { \ArgOne_{TL} }{   0     }
+  { \ArgOne_{BL} }{ \ArgOne_{BR} }
+}
+
+\newcommand{\PartOrigTwo}{              % Partition \hat{B} into top and bottom
+\FlaTwoByOne 
+  { \OrigTwo_{T} }
+  { \OrigTwo_{B} }
+}
+
+% Insert the partitionings into the Initialization
+
+\renewcommand{\partitionings}{
+$ \ArgOne \rightarrow \PartArgOne $,    % Partition L
+$ \ArgTwo \rightarrow \PartArgTwo $,    % Partition B
+\\                       % move to next line
+and
+$ \OrigTwo \rightarrow \PartOrigTwo $  % Partition B
+}
+
+% Insert the sizes of the partitionings into the initialization
+
+\renewcommand{\partitionsizes}{
+$ \ArgOne_{TL} $ is $ 0 \times 0 $, and 
+$ \ArgTwo_{T} $ and $ \OrigTwo_{T} $
+have $ 0 $ rows
+}
+
+% Step 5a: Repartition the partitioned matrices
+
+\newcommand{\RepartArgOne}{
+\FlaThreeByThreeBR
+  { L_{00} }  {     0        }{ 0 }
+  { l_{10}^T }{ \lambda_{11} }{ 0 }
+  { L_{20}   }{ l_{21}       }{ L_{22} }
+}
+
+\newcommand{\RepartArgTwo}{
+\FlaThreeByOneB
+  { B_{0} }  
+  { b_{1}^T }
+  { B_{2}   }
+}
+
+\newcommand{\RepartOrigTwo}{
+\FlaThreeByOneB
+  { \hat{B}_{0} }  
+  { \hat{b}_{1}^T }
+  { \hat{B}_{2}   }
+}
+
+\renewcommand{\repartitionings}{
+ $  \PartArgOne \rightarrow \RepartArgOne $,
+ $  \PartArgTwo \rightarrow \RepartArgTwo $, \\
+ and
+ $  \PartOrigTwo \rightarrow \RepartOrigTwo $
+}
+
+\renewcommand{\repartitionsizes}{
+$ \lambda_{11} $ is a scalar and $ b_1^T $ and $ \hat{b}_1^T $
+are rows
+}
+
+% Step 5b: ``Move the double lines''
+
+\newcommand{\MoveArgOne}{
+\FlaThreeByThreeTL
+  { L_{00} }  {     0        }{ 0 }
+  { l_{10}^T }{ \lambda_{11} }{ 0 }
+  { L_{20}   }{ l_{21}       }{ L_{22} }
+}
+
+\newcommand{\MoveArgTwo}{
+\FlaThreeByOneT
+  { B_{0} }  
+  { b_{1}^T }
+  { B_{2}   }
+}
+
+\newcommand{\MoveOrigTwo}{
+\FlaThreeByOneT
+  { \hat{B}_{0} }  
+  { \hat{b}_{1}^T }
+  { \hat{B}_{2}   }
+}
+
+\renewcommand{\moveboundaries}{
+ $  \PartArgOne \leftarrow \MoveArgOne $,
+ $  \PartArgTwo \leftarrow \MoveArgTwo $, \\
+ and
+ $  \PartOrigTwo \leftarrow \MoveOrigTwo $
+}
+
+% Step 6: State after the repartitioning
+
+\renewcommand{\beforeupdate}{
+ \RepartArgTwo =
+ \FlaThreeByOneB
+   { L_{00}^{-1} \hat{B}_0 }
+   { \hat{b}_1^T - l_{10}^T L_{00}^{-1} \hat{B}_0 }
+   { \hat{B}_2   - L_{20}   L_{00}^{-1} \hat{B}_0 }
+}
+
+% Step 7: State after moving the double lines
+
+\renewcommand{\afterupdate}{
+ \MoveArgTwo =
+ \FlaThreeByOneT
+   { L_{00}^{-1} \hat{B}_0 }
+   { \lambda_{11}^{-1}( \hat{b}_1^T - l_{10}^T L_{00}^{-1} \hat{B}_0 ) }
+   { \hat{B}_2   - L_{20}   L_{00}^{-1} \hat{B}_0 
+                 - l_{21} \lambda_{11}^{-1}( \hat{b}_1^T - l_{10}^T L_{00}^{-1} \hat{B}_0 ) }
+}
+
+% Step 8: Fill in the update
+\renewcommand{\update}{
+$
+  \begin{array}{l}
+    b_{1}^T \becomes b_{1}^T / \lambda_{11} \\
+    B_{2}   \becomes B_{2} - l_{21} b_{1}^T
+  \end{array}
+$
+}
+
+% Typically, in a document, an algorithm will appear in a separate figure.
+% For this we use the \LaTeX figure environment.  The optional arguments
+% [tbp] indicate that the figure should be placed at the first of
+% the top of a page, the bottom of a page, or on a page by itself, in
+% that order.
+
+\begin{figure}[tbp]
+
+\begin{center}     % center the algorithm on the page
+\footnotesize      % make the font smaller so things fit on a page
+
+\worksheet         % this command generates the worksheet using the
+                   % commands that were defined between the \resetsteps
+                   % and the \worksheet command
+\end{center}
+
+% The following command creates a caption for the figure.
+
+\caption{ Worksheet for deriving unblocked algorithm for
+$ B \becomes L^{-1} B $ (Variant 2).}
+
+
+% The following command creates a label so that the figure can
+% be referenced by its number by inserting 
+%  \ref{Trsm_llnn:annotated_unb_var2} in the \LaTeX source
+
+\label{Trsm_llnn:annotated_unb_var2}
+
+\end{figure}
+
+% Next, we create a figure with just the algorithms in it.
+% To do so, we must redefine a few commands.  Commands
+% related to annotations are simply not printed.  However,
+% some other commands reference \hat{B}, which is only needed
+% for that annotations as part of the argument of correctness.
+
+% Insert the partitionings into the Initialization
+
+% Step 4: Fill in the initialization
+
+\renewcommand{\partitionings}{
+$ \ArgOne \rightarrow \PartArgOne $, and   % Partition L 
+$ \ArgTwo \rightarrow \PartArgTwo $        % Partition B
+}
+
+% Insert the sizes of the partitionings into the initialization
+
+\renewcommand{\partitionsizes}{
+$ \ArgOne_{TL} $ is $ 0 \times 0 $ and 
+$ \ArgTwo_{T} $ has $ 0 $ rows
+}
+
+% Step 5a: Repartition the partitioned matrices
+
+\renewcommand{\repartitionings}{
+ $  \PartArgOne \rightarrow \RepartArgOne $ and
+ $  \PartArgTwo \rightarrow \RepartArgTwo $
+}
+
+\renewcommand{\repartitionsizes}{
+$ \lambda_{11} $ is a scalar and $ b_1^T $ is a row
+}
+
+% Step 5b: ``Move the double lines''
+
+\renewcommand{\moveboundaries}{
+ $  \PartArgOne \leftarrow \MoveArgOne $,
+ $  \PartArgTwo \leftarrow \MoveArgTwo $, \\
+ and
+ $  \PartOrigTwo \leftarrow \MoveOrigTwo $
+}
+
+\begin{figure}[tbp]
+
+\begin{center}     % center the algorithm on the page
+\footnotesize      % make the font smaller so things fit on a page
+
+\FlaAlgorithm      % this command generates the algorithm using the
+                   % commands that were defined
+\end{center}
+
+% The following command creates a caption for the figure.
+
+\caption{ Algorithm for deriving unblocked algorithm for
+$ B \becomes L^{-1} B $ (Variant 2).}
+
+
+% The following command creates a label so that the figure can
+% be referenced by its number by inserting 
+%  \ref{Trsm_llnn:alg_unb_var2} in the \LaTeX source
+
+\label{Trsm_llnn:alg_unb_var2}
+
+\end{figure}
+
+\end{document}
