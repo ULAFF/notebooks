@@ -35,7 +35,6 @@ function Operand(tagName, mm, nn){
           if (partType.charAt(0) == '2'){ //2x1 || 2x2
 	      if (index.charAt(0) == '0'){ //00, 01, 02 
 		  rEnd = Math.min(curTop, off_m);
-		  //rEnd = curTop;
 	      }
 
 	      if (index.charAt(0) == '1'){
@@ -51,7 +50,6 @@ function Operand(tagName, mm, nn){
           if (partType.charAt(2) == '2'){ //1x2 || 2x2
 	      if (index.charAt(index.length-1) == '0'){
 		   cEnd = Math.min(curLeft, off_n);
-		  //cEnd = curLeft;
 	      }
 	      if (index.charAt(index.length-1) == '1'){
 		cStart = Math.min(curLeft, off_n);
@@ -160,14 +158,12 @@ function Operand(tagName, mm, nn){
 	    tbl.rows[curTop].className = 'T';
 	}
 	if (type=='1x2' || type=='2x2'){  
-	    //	    alert(partDir+' '+partDir.length);
 	    if (partDir.charAt(partDir.length-1) == 'L')
 		curLeft = 0;
 	    else{
 		curLeft = tbl.rows[0].cells.length-1;
 	    }
-	    //	     document.getElementById(this.tag+'col'+curLeft).style.borderRight="6px solid black";
-	    for (var i = 1; i != tbl.rows.length; ++i){
+	    for (var i = 0; i != tbl.rows.length; ++i){
 		tbl.rows[i].cells[curLeft].className = 'L';
 	    }
 	    
@@ -193,35 +189,16 @@ function Operand(tagName, mm, nn){
 	    off_m = curTop+mm;
 	}
 	if (partType=='1x2' || partType=='2x2'){         
-	       for (var i = 1; i != tbl.rows.length; ++i){
+	       for (var i = 0; i != tbl.rows.length; ++i){
 		   tbl.rows[i].cells[curLeft+nn].className = 'R';
 	       }
 	       off_n = curLeft+nn;
-	       //document.getElementById(this.tag+'col'+(curLeft+nb)).style.borderRight="2px solid black";
 	}
     }
 
     this.cont_with = function (){
 	var elmt = document.getElementById(this.tag);
 	var tbl = elmt.childNodes[1];
-	/*
-	for (var i = 0; i != n; ++i){
-	    with (document.getElementById(this.tag+'col'+i).style){
-		if (borderRight){
-		    if (i == curLeft){
-			borderRight = '';
-		    }
-		    else{
-			borderRight = '6px solid black';
-			curRight = i;
-		    }
-		}
-	    }
-	}
-	*/
-	
-	//	document.getElementById(this.tag+'col'+curLeft).style.borderRight = '';
-
 
 	for (var i = 0; i != tbl.rows.length; ++i){
 	    if (tbl.rows[i].className == 'T')

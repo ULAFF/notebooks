@@ -14,8 +14,11 @@ function execute_BLAS(stmt){
     if (stmt.fn == 'laff.add'){
 	add(stmt.args[0], stmt.args[1], stmt.args[2]);
     }
+    if (stmt.fn == 'laff.dots'){
+	dot(stmt.args[0], stmt.args[1], stmt.args[2], true);
+    }
     if (stmt.fn == 'laff.dot'){
-	dot(stmt.args[0], stmt.args[1], stmt.args[2]);
+	dot(stmt.args[0], stmt.args[1], stmt.args[2], false);
     }
     if (stmt.fn == 'laff.axpy'){
 	axpy(stmt.args[0], stmt.args[1], stmt.args[2]);
@@ -140,7 +143,7 @@ function add(xx, yy, zz){
 }
 
 
-function dot(xx, yy, aa){
+function dot(xx, yy, aa, add_alpha){
     var x_op, y_op, alpha_op;
 
     var x = extract_region(xx);
@@ -178,7 +181,12 @@ function dot(xx, yy, aa){
 		Number(x.getElementAt(i,0)) * Number(y.getElementAt(i,0));
 	}
     }
-    alpha.setElementAt(0,0, outputVal + alpha.getElementAt(0, 0));
+    if (add_alpha){
+	alpha.setElementAt(0,0, outputVal + alpha.getElementAt(0, 0));
+    }
+    else{
+	alpha.setElementAt(0,0, outputVal);
+    }
 }
 
 

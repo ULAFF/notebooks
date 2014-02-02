@@ -3,10 +3,9 @@
   <head>
     <meta charset="utf-8">
     <title>Picture FLAME</title>
-    <link rel="stylesheet" href="codemirror/lib/codemirror.css">
-    <script src="codemirror/lib/codemirror.js"></script>
-    <script src="addon/edit/matchbrackets.js"></script>
-    <script src="codemirror/mode/clike/clike.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+
 
     <script src="parse_code.js"></script
     <script src="routines.js"></script>
@@ -29,6 +28,7 @@
           DEFAULT_MODE = 1;
         }
 
+        //Python look for \
         matched = code.match(/\\/g);
         if (matched && matched.length != 0){
           DEFAULT_MODE = 2;
@@ -100,7 +100,7 @@
              for (var j = 0; j != operands.length; ++j){
                
                 //check if operands[j] needs to be highlighted
-                //make output pink
+                //make output (defaulted to last arg) pink
                 if (operands[j].match(parsed_stmt.args[i].op)){ 
                     operands[j].select(parsed_stmt.args[i].subregion,
                                        (i==parsed_stmt.args.length-1?'pink':'lightblue'));
@@ -120,10 +120,10 @@
 
       var operands;
 
-      function make_operand(tag, m, n){
+      function make_operand(tag, m, n, i){
         var len = operands.push(new Operand(tag, m, n));
 
-       return '<div id="'+tag+'" class="operand">'+tag+operands[len-1].display()+'</div>';
+       return '<div id="'+tag+'" class="operand'+i+'">'+tag+operands[len-1].display()+'</div>';
       }
       
       function display_operands(operands){
@@ -133,17 +133,17 @@
           switch (operands[i].length){
             case 1: //matrix or column vector
               if (operands[i].charCodeAt(0)>=97){ //vector
-                 output += make_operand(operands[i],DEFAULT_SIZE,1);
+                 output += make_operand(operands[i],DEFAULT_SIZE,1, i%2);
               }
               else{  //vector
-                 output += make_operand(operands[i],DEFAULT_SIZE, DEFAULT_SIZE);
+                 output += make_operand(operands[i],DEFAULT_SIZE, DEFAULT_SIZE, i%2);
               }
               break;
             case 2: //row vector
-              output += make_operand(operands[i].charAt(0), 1, DEFAULT_SIZE);
+              output += make_operand(operands[i].charAt(0), 1, DEFAULT_SIZE, i%2);
               break;
             default://scalar
-              output += make_operand(operands[i],1,1);
+              output += make_operand(operands[i],1,1, i%2);
               break;
           }
         }    
@@ -165,77 +165,63 @@
         display_operands(fnSummary.operands);
       
         //execute FLAME algorithm
-        ani = new Animator(codeSummary.head, codeSummary.foot, loopcount);
-        document.getElementById('animator').disabled = false;
+        ani = new Animator(codeSummary.head, codeSummary.foot, loopcount, document.getElementById('display_code').childNodes.length);
       }
 
       function next(){
         ani.next_animation();
       }
 
+      function play(){
+       document.getElementById('next').disabled = true;
+       document.getElementById('reload').disabled = true;
+       document.getElementById('new').disabled = true;
+       document.getElementById('play').disabled = true;
+       document.getElementById('stop').disabled = false;
+       ani.run(stop);
+      }
+
+      function stop(){
+       document.getElementById('next').disabled = false;
+       document.getElementById('reload').disabled = false;
+       document.getElementById('new').disabled = false;
+       document.getElementById('play').disabled = false;
+       document.getElementById('stop').disabled = true;
+      }
+
+    function close_input_window(){
+      document.getElementById('input_group').style.display="none";
+    }
+    function open_input_window(){
+      document.getElementById('input_group').style.display="block";
+    }
+
+    function close_animation_window(){
+      document.getElementById('animation_group').style.display="none";
+    }
+    function open_animation_window(){
+      document.getElementById('animation_group').style.display="block";
+    }
+
+    function load_program(){
+      initialize(document.getElementById('code').value);
+    }
     </script>
-
-    <link rel="stylesheet" href="doc/docs.css">
-
-    <style type="text/css">
-      .CodeMirror {
-        border: 1px solid #dee;
-        height: auto;
-      }
-      .CodeMirror-scroll {
-        overflow-y: hidden;
-        overflow-x: auto;
-      }      
-
-      #display_code, #display_pic{
-        float:left;
-      }
-
-      div.operand{
-        display:table;
-      }
-    </style>
-    <style>
-      .curStat{
-        color:red;
-      }
-      table.matrix{
-        float:left;
-        border-collapse:collapse;
-        margin:20px;
-      }      
-      td {
-        padding:5px;
-      }
-      tr.T {      
-        border-bottom:6px solid black;
-      }
-      tr.B {      
-        border-bottom:2px solid black;
-      }
-      td.L {      
-        border-right:6px solid black;
-      }
-      td.R {      
-        border-right:2px solid black;
-      }
-    </style>
-
   </head>
   <body> <!--onLoad="initialize(document.getElementById('code').value)" -->
-    <h1>Picture FLAME</h1>
+    <h2>PictureFLAME</h2>
 
-    <div id="input_block">
-      <textarea id="code" name="code" cols="75" rows="20" onBlur="initialize(document.getElementById('code').value)">
-
-% Copyright 2013 The University of Texas at Austin
-%
-% For licensing information see
-%                http://www.cs.utexas.edu/users/flame/license.html 
-%                                                                                 
-% Programmed by: Name of author
-%                Email of author
-
+    <div id="input_group">
+      <div id="input_control" class="group_header">
+        Input Program      
+<!--        <div style="float:right;color:white;background-color:navy;border:2px solid lightgray;" onClick="close_input_window();load_program();open_animation_window()">
+	Load
+         </div>
+-->
+       <input type="button" value="Load Program" onClick="close_input_window();load_program();open_animation_window()"/>
+       </div>
+       <div id="input_block">
+         <textarea id="code" name="code" cols="75" rows="20" style="margin:10px">
 function [ A_out, B_out, C_out, D_out ] = Function_Name_unb( A, B, C, D)
 
   [ ATL, ATR, ...
@@ -319,15 +305,20 @@ function [ A_out, B_out, C_out, D_out ] = Function_Name_unb( A, B, C, D)
             DB ];
 
 return
-    </textarea></div>
-<!--    <input type = "button" id="animator" value="Load" onClick="initialize(document.getElementById('code').value)"/> -->
-
-    <div id="control">
-<!--      <input type = "button" id="runBtn" value="Play" onClick="play()"/>
-      <input type = "button" id="stopBtn" value="Stop" onClick="stop()" disabled="disabled"/> -->
-      <input type = "button" id="animator" value="Next" onClick="ani.next_animation()"/>
+          </textarea>
+       </div>
     </div>
-     <div id='display_code'></div>
-     <div id='display_pic'></div>
+    <div id="animation_group" style="display:none">
+      <div id="control" class="group_header">
+      Animation
+      <input type = "button" id="next" value="Next" onClick="ani.next_animation()"/>
+      <input type = "button" id="reload" value="Reload" onClick="load_program()"/>
+      <input type = "button" id="new" value="New Program" onClick="close_animation_window();open_input_window()"/>
+      <input type = "button" id="play" value="Play" onClick="play()"/>
+      <input type = "button" id="stop" value="Stop" onClick="ani.stop()" disabled="true"/>
+    </div>
+       <div id='display_code'></div>
+       <div id='display_pic'></div>
+    </div>
   </body>
 </html>
