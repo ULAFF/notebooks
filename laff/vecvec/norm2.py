@@ -38,7 +38,7 @@ def norm2( x ):
 				maxval = abs(y[ i, 0 ])
 	
 	#If y is the zero vector, return 0
-	if maxval == 0:
+	if abs(maxval) < 1e-7:
 		return 0
 		
 	#Scale all of the values by 1/maxval to prevent under/overflow
@@ -47,4 +47,3 @@ def norm2( x ):
 	alpha = maxval * sqrt( laff.dot( y, y ) )
 	
 	return alpha
-
