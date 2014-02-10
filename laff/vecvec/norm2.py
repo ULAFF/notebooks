@@ -29,16 +29,16 @@ def norm2( x ):
 		#Find a value to scale by to avoid under/overflow
 		for i in range(n):
 			if abs(y[ 0, i ]) > maxval:
-				maxval = y[ 0, i ]
+				maxval = abs(y[ 0, i ])
 		
 	elif n is 1: #y is a column
 		#Find a value to scale by to avoid under/overflow
 		for i in range(m):
 			if abs(y[ i, 0 ]) > maxval:
-				maxval = y[ i, 0 ]
+				maxval = abs(y[ i, 0 ])
 	
 	#If y is the zero vector, return 0
-	if maxval is 0:
+	if maxval == 0:
 		return 0
 		
 	#Scale all of the values by 1/maxval to prevent under/overflow
