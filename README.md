@@ -15,5 +15,6 @@ Learn the theory of linear algebra hand-in-hand with the practice of software li
 
 
 <a href="http://www.curatorscode.org" target="_blank"> <img src="https://raw.github.com/UT501x/shared/master/icons/badges/dark-2.png"/> <strong>Attributions</strong> </a>  
+&nbsp;&nbsp;&nbsp;&nbsp;[&#x1525; FLAME](http://www.cs.utexas.edu/~flame)  
+&nbsp;&nbsp;&nbsp;&nbsp;[&#x1525; Spark](http://www.cs.utexas.edu/users/flame/Spark)  
 &nbsp;&nbsp;&nbsp;&nbsp;[&#x21ac; Probabilistic Programming and Bayesian Methods for Hackers](http://nbviewer.ipython.org/github/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers/blob/master/Prologue/Prologue.ipynb)  
-
