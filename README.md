@@ -13,6 +13,10 @@ Learn the theory of linear algebra hand-in-hand with the practice of software li
 [1.6.3 Programming without indices (dot product)](http://nbviewer.ipython.org/github/UT501x/LAFF/blob/master/1.6.3 Programming without indices (dot product).ipynb) - [Answer](http://nbviewer.ipython.org/github/UT501x/LAFF/blob/master/1.6.3 Programming without indices \(dot product\) - Answer.ipynb)  
 [1.6.6 Programming without indices (axpy)](http://nbviewer.ipython.org/github/UT501x/LAFF/blob/master/1.6.6 Programming without indices (axpy).ipynb) - [Answer](http://nbviewer.ipython.org/github/UT501x/LAFF/blob/master/1.6.6 Programming without indices \(axpy\) - Answer.ipynb)
 
+**Week 2**
+
+[2.4.2.10 Practice with matrix-vector multiplication](http://nbviewer.ipython.org/github/UT501x/LAFF/blob/master/2.4.2.10 Practice with matrix-vector multiplication.ipynb)
+
 
 <a href="http://www.curatorscode.org" target="_blank"> <img src="https://raw.github.com/UT501x/shared/master/icons/badges/dark-2.png"/> <strong>Attributions</strong> </a>  
 &nbsp;&nbsp;&nbsp;&nbsp;[&#x1525; FLAME](http://www.cs.utexas.edu/~flame)  
