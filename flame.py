@@ -11,17 +11,17 @@ def merge_2x2(TL, TR, BL, BR, A):
     if TR.shape[0] > 0 and TR.shape[1]> 0:
         for i in range(TR.shape[0]):
             for j in range(TR.shape[1]):
-                A[i+TL.shape[0], j] = TR[i,j];
+               A[i, TL.shape[1] + j] = TR[i,j];
 
-    if BL.shape[0] > 0 and BL.shape[1]> 0:
-        for i in range(BL.shape[0]):
-            for j in range(BL.shape[1]):
-                A[i, j+TL.shape[1]] = BL[i,j];
+        if BL.shape[0] > 0 and BL.shape[1]> 0:
+            for i in range(BL.shape[0]):
+                for j in range(BL.shape[1]):
+                    A[i + TL.shape[0], j ] = BL[i,j];
 
-    if BR.shape[0] > 0 and BR.shape[1]> 0:
-        for i in range(BR.shape[0]):
-            for j in range(BR.shape[1]):
-                A[i+TL.shape[0], j+TL.shape[1]] = BR[i,j];
+            if BR.shape[0] > 0 and BR.shape[1]> 0:
+                for i in range(BR.shape[0]):
+                    for j in range(BR.shape[1]):
+                        A[i+TL.shape[0], j+TL.shape[1]] = BR[i,j];
 
 
 def merge_2x1(T, B, A):
@@ -46,7 +46,7 @@ def merge_1x2(L, R, A):
     if R.shape[0] > 0 and R.shape[1]> 0:
         for i in range(R.shape[0]):
             for j in range(R.shape[1]):
-                A[i+L.shape[0], j] = R[i,j];
+                A[i, j+L.shape[1]] = R[i,j];
 
 
 def cont_with_1x3_to_1x2(A0, A1, A2, side='LEFT'):
