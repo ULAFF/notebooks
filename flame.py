@@ -13,15 +13,15 @@ def merge_2x2(TL, TR, BL, BR, A):
             for j in range(TR.shape[1]):
                A[i, TL.shape[1] + j] = TR[i,j];
 
-        if BL.shape[0] > 0 and BL.shape[1]> 0:
-            for i in range(BL.shape[0]):
-                for j in range(BL.shape[1]):
-                    A[i + TL.shape[0], j ] = BL[i,j];
+    if BL.shape[0] > 0 and BL.shape[1]> 0:
+        for i in range(BL.shape[0]):
+            for j in range(BL.shape[1]):
+                A[i + TL.shape[0], j ] = BL[i,j];
 
-            if BR.shape[0] > 0 and BR.shape[1]> 0:
-                for i in range(BR.shape[0]):
-                    for j in range(BR.shape[1]):
-                        A[i+TL.shape[0], j+TL.shape[1]] = BR[i,j];
+    if BR.shape[0] > 0 and BR.shape[1]> 0:
+        for i in range(BR.shape[0]):
+            for j in range(BR.shape[1]):
+                A[i+TL.shape[0], j+TL.shape[1]] = BR[i,j];
 
 
 def merge_2x1(T, B, A):
