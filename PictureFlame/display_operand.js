@@ -119,6 +119,35 @@ function Operand(tagName, mm, nn){
 
 
     this.display = function(){
+	/*	var operand_data = null;
+	if (data){
+	    operand_data = data;
+	}
+	else{
+	    operand_data = new Array();
+	    for (j = 0; j != n; ++j){
+		for (i = 0; i != m; ++i){
+		    operand_data.push(Math.floor(Math.random()*10)-5);
+		}
+	    }
+	}
+	*/
+	//create data  implicitly assume m=n
+	var A = new Array();
+	var L = new Array();
+	var U = new Array();
+       
+	random_array(m*n, L);
+	random_array(m*n, U);
+	zero_array(m*n, A);
+	
+	triangularize(L, lower);
+	triangularize(U, upper);
+	unitfy(L, m);
+	
+	multiply_matrix(m, n, m, L, m, U, m, A, m);
+	
+
 	var output = '<table class="matrix">';
 	var colgroup = '<colgroup>';
 	for (var i = 0; i != m+1 ; ++i){
@@ -126,8 +155,8 @@ function Operand(tagName, mm, nn){
 	for (var j = 0; j != n+1; ++j){
 	    colgroup += '<col id="'+this.tag+'col'+j+'"/>';
 	    row += '<td>'+
-		(i==0 || j==0?'':String(Math.floor(Math.random()*10)-5).substring(0,7))+
-		'</td>';
+		(i==0 || j==0?'':String(A[(j-1)*m+(i-1)]).substring(0,7))+
+		'</td>'
 	}
 	row += '</tr>';
 	colgroup += '</colgroup>';
