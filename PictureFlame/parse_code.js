@@ -29,24 +29,24 @@
 	  //remove ending ; and empty spaces
 	  stmt = stmt.replace(';','').replace(/\s+/g, '');
 	  
-	  //  var operators = /[\*=\-\+]/gim;
-	  //	  var exprs = stmt.split(operators);
+	  var operators = /[\*=\-\+]/gim;
+	  var exprs = stmt.split(operators);
 	  var fns = new Array();
 
-	  //if (exprs.length == 1){
+	  if (exprs.length == 1){
 	      //BLAS like call	      
 	      return parse_fn(stmt);
-	      //	  }
-	      //	  else{
+	  }
+	  else{
 	      //matlab like calls     
 
 	      //parse arguments
-	      //	      var oprds = new Array();
-	      //	      for (var i = 0; i != exprs.length; ++i)
-	      //		  oprds.push(parse_oprd(exprs[i]));
+	      var oprds = new Array();
+	      for (var i = 0; i != exprs.length; ++i)
+		  oprds.push(parse_oprd(exprs[i]));
 
-	      //	      return {fn:'', args:oprds};
-	      //	  }
+	      return {fn:'', args:oprds};
+	  }
       }
 
 
@@ -56,8 +56,7 @@
 
 	  var comdExpr = /\'.*\'/gi;
 	  
-	  if (Number(oprd).toString() == oprd ||
-	      Number(oprd).toString()+".0" == oprd){
+	  if (Number(oprd).toString() == oprd){
 	      return {op:'',subregion:oprd}
 	  }
 	  else if (comdExpr.exec(oprd)){

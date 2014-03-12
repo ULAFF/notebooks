@@ -6,8 +6,8 @@
 
     <link rel="stylesheet" href="style.css">
 
-    <script src="util.js"></script>
-    <script src="parse_code.js"></script>
+
+    <script src="parse_code.js"></script
     <script src="routines.js"></script>
     <script src="routines_2.js"></script>
     <script src="display_code.js"></script>
@@ -120,12 +120,10 @@
 
       var operands;
 
-      function make_operand(tag, m, n, i){        
-
+      function make_operand(tag, m, n, i){
         var len = operands.push(new Operand(tag, m, n));
 
-       return '<div id="'+tag+'" class="operand'+i+'">'+
-	       tag+operands[len-1].display()+'</div>';
+       return '<div id="'+tag+'" class="operand'+i+'">'+tag+operands[len-1].display()+'</div>';
       }
       
       function display_operands(operands){
