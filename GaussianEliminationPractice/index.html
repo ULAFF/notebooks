@@ -41,7 +41,7 @@ multiply_matrix(/*NO_TRANS, NO_TRANS, */
                 DIM, DIM, DIM,
                 /*1.0,*/ L, DIM, U,DIM,
                 /*1.0,*/ A, DIM);
-
+								
 multiply_matrix(/*NO_TRANS, NO_TRANS, */
                 DIM, 1, DIM,
                 /*1.0,*/ A, DIM, x, 1,
@@ -83,8 +83,7 @@ var curAb = cur_data[0].curAb;
   <input type="button" value="Problem 3" id="p2" onClick="select_problem(this.id)"/>
   <input type="button" value="Problem 4" id="p3" onClick="select_problem(this.id)"/>
   <input type="button" value="Problem 5" id="p4" onClick="select_problem(this.id)"/>
-  <input type="button" value="Random Problem" id="p2"
-onClick="select_problem(this.id)"/>
+  <input type="button" value="Random Problem" onClick="display_problem()"/>
   <div> <br><br></div>
   <div class="exercise"  id="take1" onClick="context_switch(this)">
     <div class="take"> 6.2.1 Reducing a System of Linear Equations to an Upper
