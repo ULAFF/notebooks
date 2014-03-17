@@ -3,7 +3,7 @@ from numpy import shape
 
 def dots(x, y, alpha ):
     """
-    Compute alpha = x' * y + alpha, storing the result in alpha and returning 
+    Compute alpha = x' * y + alpha, storing the result in alpha and updating 
     alpha.
     
     x and y can be row and/or column vectors.  If necessary, an
