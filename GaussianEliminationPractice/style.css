@@ -1,0 +1,45 @@
+.float-exercise{
+  float:left;
+  padding-right:20px;
+}
+
+table input {
+  width:30px;
+}
+
+td {
+   padding:0px;
+   margin:0px;
+   text-align:center;	
+   height:30px;
+   min-width:20px;
+}
+
+table input.err{
+  color:red;
+}
+
+td.bar{
+ border-left: 1px solid black;
+}
+
+
+td.left {
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+  width: 2px;
+}
+
+td.right {
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  width:2px;
+}
+
+.take {
+  font-size:xx-large;
+  font-weight: bold;
+  background-color: orange;
+}
