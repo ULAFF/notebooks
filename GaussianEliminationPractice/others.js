@@ -307,12 +307,12 @@ function next(btn){
 	   
       }
     
-    if (take==4 && cur_step==2){
+    if (take==4 && cur_step==DIM-1){
 	for (var i = 0; i != DIM; ++i){
 	    document.getElementById('Step'+i+'b-4').style.display = "block";
 	}
     }    
-    if (cur_step==2){
+    if (cur_step==DIM-1){
 	document.getElementById('Step'+cur_step+'-'+take).innerHTML += 
 	    create_ending(take);
 	    
