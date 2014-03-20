@@ -4,6 +4,7 @@ from laff.util.RandomInt import RandomInt
 from laff.util.RandomMatrixForGaussJordan import RandomMatrixForGaussJordan
 from laff.vecvec.copy import copy
 from laff.vecvec.scal import scal
+from laff.vecvec.invscal import invscal
 from laff.vecvec.axpy import axpy
 from laff.vecvec.dot import dot
 from laff.vecvec.dots import dots
