@@ -5,6 +5,8 @@ from laff.matvec.trsv_lnn import trsv_lnn
 from laff.matvec.trsv_lnu import trsv_lnu 
 from laff.matvec.trsv_unn import trsv_unn 
 from laff.matvec.trsv_unu import trsv_unu 
+from laff.matvec.trsv_utn import trsv_utn
+from laff.matvec.trsv_ltu import trsv_ltu
 import sys
 
 
@@ -69,8 +71,12 @@ def trsv(uplo, trans, diag, A, b ):
                     trsv_lnu( A, b )
 
             else:
-                print( "laff.trsv: trans == Transpose not yet implemented" )
-                sys.exit( 0 )
+
+                if 'Unit diagonal' == diag:
+                    trsv_ltu( A, b )
+                else:
+                    print( "laff.trsv: trans == Transpose not yet implemented for Lower triangular, Transpose" )
+                    sys.exit( 0 )
 
         else:  # 'Upper triangular' == uplo
 
@@ -81,9 +87,14 @@ def trsv(uplo, trans, diag, A, b ):
                 else:
                     trsv_unu( A, b )
 
-            else:
-                print( "laff.trsv: trans == Transpose not yet implemented" )
-                sys.exit( 0 )
+            else: # 'Transpose' == trans
+
+                if 'Nonunit diagonal' == diag:
+                        trsv_utn( A, b )
+                else:
+                    print( "laff.trsv: trans == Transpose not yet implemented for Upper Triangular with Unit diagonal" )
+                    sys.exit( 0 )
+
     else:
         print( "laff.trsv: row b not yet implemented" )
         sys.exit( 0 )
