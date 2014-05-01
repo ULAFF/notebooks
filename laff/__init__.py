@@ -20,6 +20,7 @@ from laff.matvec.trsv_utn import trsv_utn
 from laff.matvec.trsv_ltu import trsv_ltu
 from laff.matvec.trsm import trsm
 from laff.matvec.trsm_utn import trsm_utn
+from laff.matvec.trsm_unn import trsm_unn
 from laff.matvec.trsm_lnu import trsm_lnu
 from laff.matvec.trsm_ltu import trsm_ltu
 from laff.matmat.gemm import gemm

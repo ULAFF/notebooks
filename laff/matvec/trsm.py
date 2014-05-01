@@ -4,6 +4,7 @@ from numpy import transpose
 from laff.matvec.trsm_lnu import trsm_lnu
 from laff.matvec.trsm_utn import trsm_utn
 from laff.matvec.trsm_ltu import trsm_ltu
+from laff.matvec.trsm_unn import trsm_unn
 import sys
 
 
@@ -74,13 +75,19 @@ def trsm(uplo, trans, diag, A, B ):
 
     else: #'Upper triangular' == uplo
 
-        if 'Transpose' == trans:
+        if 'No transpose' == trans:
 
-            if 'Nonunit diagonal' == diag:
-                trsm_utn( A, B )
+            if 'Unit diagonal' == diag:
+                print( "laff.trsm: trans == No transpose not yet implemented for Upper triangular, unit diagonal" )
+                sys.exit( 0 )
+
             else:
+                trsm_unn( A, B )
+
+        else:
+
+            if 'Unit diagonal' == diag:
                 print( "laff.trsm: diag == Unit diagonal not yet implemented for Upper triangular" )
                 sys.exit( 0 )
-        else:
-            print( "laff.trsm: trans == No transpose not yet implemented for Upper triangular" )
-            sys.exit( 0 )
+            else:
+                trsm_utn( A, B )
