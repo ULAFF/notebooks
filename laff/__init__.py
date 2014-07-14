@@ -18,10 +18,10 @@ from laff.matvec.trsv_unn import trsv_unn
 from laff.matvec.trsv_unu import trsv_unu
 from laff.matvec.trsv_utn import trsv_utn
 from laff.matvec.trsv_ltu import trsv_ltu
-from laff.matvec.trsm import trsm
-from laff.matvec.trsm_utn import trsm_utn
-from laff.matvec.trsm_unn import trsm_unn
-from laff.matvec.trsm_lnu import trsm_lnu
-from laff.matvec.trsm_ltu import trsm_ltu
+from laff.matmat.trsm import trsm
+from laff.matmat.trsm_utn import trsm_utn
+from laff.matmat.trsm_unn import trsm_unn
+from laff.matmat.trsm_lnu import trsm_lnu
+from laff.matmat.trsm_ltu import trsm_ltu
 from laff.matmat.gemm import gemm
 from numpy import matrix
