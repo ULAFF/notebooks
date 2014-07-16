@@ -1,10 +1,10 @@
 from numpy import matrix
-from numpy import shape 
+from numpy import shape
 from numpy import transpose
-from laff.matvec.trsm_lnu import trsm_lnu
-from laff.matvec.trsm_utn import trsm_utn
-from laff.matvec.trsm_ltu import trsm_ltu
-from laff.matvec.trsm_unn import trsm_unn
+from laff.matmat.trsm_lnu import trsm_lnu
+from laff.matmat.trsm_utn import trsm_utn
+from laff.matmat.trsm_ltu import trsm_ltu
+from laff.matmat.trsm_unn import trsm_unn
 import sys
 
 
@@ -32,10 +32,10 @@ def trsm(uplo, trans, diag, A, B ):
        A has an implicit unit diagonal
     elif diag == 'Nonunit diagonal':
        Use the entries on the diagonal of A
-       
+
     """
 
-    """ 
+    """
     Check parameters
     """
     assert (uplo == 'Lower triangular' or uplo == 'Upper triangular'), "laff.trsv: illegal value for uplo"
@@ -43,16 +43,16 @@ def trsm(uplo, trans, diag, A, B ):
     assert (trans == 'No transpose' or trans == 'Transpose'), "laff.trsv: illegal value for trans"
 
     assert (diag == 'Nonunit diagonal' or diag == 'Unit diagonal'), "laff.trsv: illegal value for diag"
-        
+
     assert type(A) is matrix and len(A.shape) is 2, \
            "laff.trsv: matrix A must be a 2D numpy.matrix"
 
     assert type(B) is matrix and len(B.shape) is 2, \
            "laff.trsvv: matrix B must be a 2D numpy.matrix"
-        
-    """ 
+
+    """
     Extract sizes
-    """           
+    """
     m_A, n_A = A.shape
     m_B, n_B = B.shape
 
@@ -71,7 +71,7 @@ def trsm(uplo, trans, diag, A, B ):
                 trsm_ltu( A, B )
             else:
                 print( "laff.trsm: trans == Transpose not yet implemented for Lower triangular, nonunit diagonal" )
-                sys.exit( 0 ) 
+                sys.exit( 0 )
 
     else: #'Upper triangular' == uplo
 
