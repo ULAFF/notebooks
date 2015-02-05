@@ -21,8 +21,8 @@ def trsv_ltu(L, B):
                                                         1, 1, 'BR')
 
         B0,  \
-        b1t, \
-        B2   = flame.repart_2x1_to_3x1(BT, \
+        beta1, \
+        b2   = flame.repart_2x1_to_3x1(BT, \
                                        BB, \
                                        1, 'BOTTOM')
 
@@ -41,8 +41,8 @@ def trsv_ltu(L, B):
 
         BT, \
         BB  = flame.cont_with_3x1_to_2x1(B0,  \
-                                         b1t, \
-                                         B2,  \
+                                         beta1, \
+                                         b2,  \
                                          'TOP')
 
     flame.merge_2x1(BT, \
